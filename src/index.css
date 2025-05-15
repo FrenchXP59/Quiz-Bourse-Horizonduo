@@ -1,3 +1,9 @@
+/* Dégradé gold très léger sur tout le fond */
+body {
+  min-height: 100vh;
+  /* Du blanc en haut vers un doré pâle en bas */
+  background: linear-gradient(to bottom, #fffbe7 0%, #ffe9b1 60%, #f5c97c 100%);
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

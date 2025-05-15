@@ -9,36 +9,48 @@ export default function Home({ onStart }) {
         w-screen h-screen
         bg-[url('/assets/icons/wall_street_bg.webp')]
         bg-cover bg-center bg-no-repeat
-
         flex flex-col items-center justify-between
-        px-4 py-8                 /* petits paddings horizontaux & verticaux */
+        px-4 pt-10 pb-8
       "
     >
-      {/* 1) Le titre en haut */}
-      <h1 className="
-          text-3xl md:text-4xl lg:text-5xl
-          font-bold text-white
-          drop-shadow-lg             /* pour le faire ressortir sur l'image */
+      {/* Titre impactant */}
+      <div className="w-full flex flex-col items-center mt-2">
+        <h1 className="
+          text-4xl md:text-5xl lg:text-6xl
+          font-extrabold
+          text-white
+          drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]
           text-center
+          px-4 py-2
+          rounded-xl
+          bg-black/20
         ">
-        Quiz Bourse
-      </h1>
+          Quiz Bourse
+        </h1>
+      </div>
 
-      {/* 2) Le bouton Entrer en bas */}
+      {/* Bouton ENTER bien visible */}
       <button
         onClick={onStart}
         className="
-          relative z-10
-          bg-transparent border-none p-0 focus:outline-none
-          mb-4                       /* marge inférieure */
+          relative z-10 mt-auto
+          focus:outline-none
+          flex items-center justify-center
+          transition-all
+          active:scale-95
         "
+        aria-label="Entrer"
       >
         <img
           src="/assets/icons/enter_button.png"
           alt="Entrer"
           className="
-            w-20 sm:w-24 md:w-28 lg:w-32
+            w-28 md:w-36 lg:w-44
             h-auto
+            drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]
+            transition-transform
+            hover:scale-110 hover:drop-shadow-[0_8px_24px_rgba(0,0,0,0.8)]
+            cursor-pointer
           "
         />
       </button>

@@ -47,18 +47,35 @@ function shuffleArray(arr) {
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
 }
-
 /**
- * Charge et prépare le quiz à partir des lots sélectionnés.
- * @param {string[]} selectedLots - clés du allLots à inclure (ex: ['lot1_instruments','lot12_epargne'])
- * @returns {Array} - tableau de questions avec options mélangées et answerIndex calculé
+ * Tire un quiz équilibré par lot (thème).
+ * @param {string[]} selectedLots - lots à inclure (ex: ['lot1_instruments', ...])
+ * @param {number} totalCount - nombre total de questions à tirer
+ * @returns {Array} - tableau de questions mélangées et préparées
  */
-export function loadQuiz(selectedLots = Object.keys(allLots)) {
-  // 1. Concatène toutes les questions des lots choisis
-  const pool = selectedLots.flatMap(key => allLots[key] || []);
+export function loadQuizBalanced(selectedLots = Object.keys(allLots), totalCount = 10) {
+  // 1. On prépare un pool de questions par lot (thème)
+  const pools = selectedLots.map(key => shuffleArray(allLots[key] || []));
+  const nbThemes = pools.length;
+  const perTheme = Math.floor(totalCount / nbThemes);
 
-  // 2. Shuffle des options et calcul de answerIndex
-  return pool.map(q => {
+  let result = [];
+  // 2. Pour chaque thème, on en prend perTheme (si possible)
+  pools.forEach(pool => {
+    result = result.concat(pool.slice(0, perTheme));
+  });
+
+  // 3. Complète pour arriver à totalCount (pioche dans le reste)
+  let allQuestions = pools.flat().filter(q => !result.includes(q));
+  allQuestions = shuffleArray(allQuestions);
+  let i = 0;
+  while (result.length < totalCount && i < allQuestions.length) {
+    result.push(allQuestions[i]);
+    i++;
+  }
+
+  // 4. Mélange final + options des QCM et answerIndex
+  return shuffleArray(result).map(q => {
     const shuffled = shuffleArray(q.options);
     return {
       ...q,
@@ -67,4 +84,5 @@ export function loadQuiz(selectedLots = Object.keys(allLots)) {
     };
   });
 }
+
 
