@@ -1,7 +1,9 @@
-// src/components/Home.jsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Home({ onStart }) {
+  const navigate = useNavigate();
+
   return (
     <div
       className="
@@ -29,7 +31,10 @@ export default function Home({ onStart }) {
         </h1>
       </div>
 
-      {/* Bouton ENTER bien visible */}
+      {/* Espace pour centrer verticalement */}
+      <div className="flex-1 flex flex-col items-center justify-center w-full" />
+
+      {/* Bouton ENTER */}
       <button
         onClick={onStart}
         className="
@@ -53,6 +58,18 @@ export default function Home({ onStart }) {
             cursor-pointer
           "
         />
+      </button>
+
+      {/* Bouton Mes badges */}
+      <button
+        onClick={() => navigate("/mybadges")}
+        className="
+          mt-8 px-6 py-2 rounded-xl bg-yellow-100 text-yellow-700 font-bold
+          shadow hover:bg-yellow-200 hover:scale-105 transition
+          text-base md:text-lg
+        "
+      >
+        Voir mes badges
       </button>
     </div>
   );

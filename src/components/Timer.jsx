@@ -7,7 +7,7 @@ export default function Timer({ seconds, icon }) {
         className="
           w-16 h-16
           sm:w-20 sm:h-20
-          md:w-24 md:h-24
+          md:w-28 md:h-28
           max-w-[100px] max-h-[100px]
           min-w-[48px] min-h-[48px]
           mb-2
