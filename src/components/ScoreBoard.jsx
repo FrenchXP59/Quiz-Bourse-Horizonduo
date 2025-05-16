@@ -1,11 +1,10 @@
-// src/components/ScoreBoard.jsx
 import React, { useEffect, useState } from "react";
 import scoreLow from "../assets/icons/score_low.png";
 import scoreMedium from "../assets/icons/score_medium.png";
 import scoreHigh from "../assets/icons/score_high.png";
 import backIcon from "../assets/icons/back.png";
 import { badgesData } from "../data/badgesData";
-import BadgesUnlockedModal from "./BadgesUnlockedModal"; // À créer
+import BadgesUnlockedModal from "./BadgesUnlockedModal";
 
 // Helper niveau/message/icône
 function getScoreInfo(score, max) {
@@ -126,6 +125,13 @@ export default function ScoreBoard({ score, total, onReplay, onHome, onShowLeade
             onClick={openNews}
           >
             News Bourse 📰
+          </button>
+          <button
+            className="w-full py-3 rounded-xl bg-yellow-50 text-yellow-800 font-bold text-lg border border-yellow-200 hover:bg-yellow-100 transition flex items-center justify-center gap-2"
+            onClick={() => window.open("https://buymeacoffee.com/lescarnetsduo", "_blank")}
+          >
+            <span role="img" aria-label="coffee">☕️</span>
+            Offrir un café
           </button>
         </div>
       </div>

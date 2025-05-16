@@ -12,7 +12,8 @@ export default function Home({ onStart }) {
         bg-[url('/assets/icons/wall_street_bg.webp')]
         bg-cover bg-center bg-no-repeat
         flex flex-col items-center justify-between
-        px-4 pt-10 pb-8
+      px-4 pt-10 pb-8
+      pb-[env(safe-area-inset-bottom)]
       "
     >
       {/* Titre impactant */}

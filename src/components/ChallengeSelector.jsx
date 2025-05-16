@@ -13,7 +13,7 @@ const CHALLENGES = [
 export default function ChallengeSelector({ onSelect }) {
   return (
     <div className="flex flex-col items-center min-h-screen justify-center
-      bg-gradient-to-b from-[#faf6ee] via-[#f3f8fe] to-[#faf6ee] py-10">
+      bg-gradient-to-b from-[#faf6ee] via-[#f3f8fe] to-[#faf6ee] py-10 pb-[env(safe-area-inset-bottom)]">
       <div className="
         bg-[#fcfcfc]/95 border border-[#ede9d7] rounded-xl p-7 w-full max-w-md shadow-xl
         flex flex-col items-center
