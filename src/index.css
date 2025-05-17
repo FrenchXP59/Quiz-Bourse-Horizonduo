@@ -1,9 +1,29 @@
-/* Dégradé gold très léger sur tout le fond */
-body {
-  min-height: 100vh;
-  /* Du blanc en haut vers un doré pâle en bas */
-  background: linear-gradient(to bottom, #fffbe7 0%, #ffe9b1 60%, #f5c97c 100%);
-}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* === Fond global + hauteur 100% === */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* supprime le scroll vertical */
+  background: linear-gradient(to bottom, #ecd9ff 0%, #d6e9fb 60%, #f3f3ff 100%);
+  font-family: 'Inter', sans-serif;
+  color: #1f2937;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === Zone principale sans max-width === */
+#root {
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* === Animations personnalisées === */
+@import "./styles/animations.css";

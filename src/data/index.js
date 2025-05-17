@@ -1,39 +1,39 @@
 // src/data/index.js
 
-import { lot1_instruments } from "./lot1_instruments";
-import { lot2_actions } from "./lot2_actions";
-import { lot3_fiscalite } from "./lot3_fiscalite";
-import { lot4_analyse_fondamentale } from "./lot4_analyse_fondamentale";
-import { lot5_analyse_technique } from "./lot5_analyse_technique";
-import { lot6_strategies } from "./lot6_strategies";
-import { lot7_psychologie } from "./lot7_psychologie";
-import { lot8_culture_boursiere } from "./lot8_culture_boursiere";
-import { lot9_profils } from "./lot9_profils";
-import { lot10_trading } from "./lot10_trading";
-import { lot11_crypto } from "./lot11_crypto";
-import { lot12_epargne } from "./lot12_epargne";
-import { lot13_marche } from "./lot13_marche";
-import { lot14_saisonnalite } from "./lot14_saisonnalite";
-import { lot15_risque } from "./lot15_risque";
-import { lot99_autres } from "./lot99_autres";
+import { lot1_litterature } from "./lot1_litterature";
+import { lot2_histoire } from "./lot2_histoire";
+import { lot3_science } from "./lot3_science";
+import { lot4_geo } from "./lot4_geo";
+import { lot5_techno } from "./lot5_techno";
+import { lot6_art } from "./lot6_art";
+import { lot7_societe } from "./lot7_societe";
+import { lot8_actuEurope } from "./lot8_actuEurope";
+import { lot9_climat } from "./lot9_climat";
+import { lot10_langue } from "./lot10_langue";
+import { lot11_sante } from "./lot11_sante";
+import { lot12_maths } from "./lot12_maths";
+import { lot13_economie } from "./lot13_economie";
+import { lot14_mixte } from "./lot14_mixte";
+import { lot15_bd } from "./lot15_bd";
+import { lot99_jeuxvideo } from "./lot99_jeuxvideo";
 
 export const allLots = {
-  lot1_instruments,
-  lot2_actions,
-  lot3_fiscalite,
-  lot4_analyse_fondamentale,
-  lot5_analyse_technique,
-  lot6_strategies,
-  lot7_psychologie,
-  lot8_culture_boursiere,
-  lot9_profils,
-  lot10_trading,
-  lot11_crypto,
-  lot12_epargne,
-  lot13_marche,
-  lot14_saisonnalite,
-  lot15_risque,
-  lot99_autres,
+  lot1_litterature,
+  lot2_histoire,
+  lot3_science,
+  lot4_geo,
+  lot5_techno,
+  lot6_art,
+  lot7_societe,
+  lot8_actuEurope,
+  lot9_climat,
+  lot10_langue,
+  lot11_sante,
+  lot12_maths,
+  lot13_economie,
+  lot14_mixte,
+  lot15_bd,
+  lot99_jeuxvideo,
 };
 
 /**
@@ -47,25 +47,23 @@ function shuffleArray(arr) {
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
 }
+
 /**
  * Tire un quiz équilibré par lot (thème).
- * @param {string[]} selectedLots - lots à inclure (ex: ['lot1_instruments', ...])
+ * @param {string[]} selectedLots - lots à inclure (ex: ['lot1_litterature', ...])
  * @param {number} totalCount - nombre total de questions à tirer
  * @returns {Array} - tableau de questions mélangées et préparées
  */
 export function loadQuizBalanced(selectedLots = Object.keys(allLots), totalCount = 10) {
-  // 1. On prépare un pool de questions par lot (thème)
   const pools = selectedLots.map(key => shuffleArray(allLots[key] || []));
   const nbThemes = pools.length;
   const perTheme = Math.floor(totalCount / nbThemes);
 
   let result = [];
-  // 2. Pour chaque thème, on en prend perTheme (si possible)
   pools.forEach(pool => {
     result = result.concat(pool.slice(0, perTheme));
   });
 
-  // 3. Complète pour arriver à totalCount (pioche dans le reste)
   let allQuestions = pools.flat().filter(q => !result.includes(q));
   allQuestions = shuffleArray(allQuestions);
   let i = 0;
@@ -74,7 +72,6 @@ export function loadQuizBalanced(selectedLots = Object.keys(allLots), totalCount
     i++;
   }
 
-  // 4. Mélange final + options des QCM et answerIndex
   return shuffleArray(result).map(q => {
     const shuffled = shuffleArray(q.options);
     return {
@@ -84,5 +81,3 @@ export function loadQuizBalanced(selectedLots = Object.keys(allLots), totalCount
     };
   });
 }
-
-

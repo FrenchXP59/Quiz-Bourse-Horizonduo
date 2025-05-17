@@ -6,6 +6,9 @@ import QuestionCard from "./components/QuestionCard";
 import ScoreBoard from "./components/ScoreBoard";
 import ModalLeaderboard from "./components/ModalLeaderboard";
 import MyBadges from "./pages/MyBadges";
+import SelectCategory from "./pages/SelectCategory";
+import Game from "./pages/Game";
+import DifficultySelector from "./components/DifficultySelector";
 import { loadQuizBalanced, allLots } from "./data";
 
 export default function App() {
@@ -13,10 +16,8 @@ export default function App() {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
-
   const [step, setStep] = useState("home");
 
-  // ---- Logique quiz ----
   const goToChallenge = () => setStep("challenge");
   const startQuiz = (nbQuestions = 5) => {
     const qs = loadQuizBalanced(Object.keys(allLots), nbQuestions);
@@ -36,10 +37,9 @@ export default function App() {
     }
   };
 
-  // ---- ROUTING ----
   return (
     <BrowserRouter>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#fffbe8] via-[#f9fafb] to-[#f5e6c4]">
+        <div className="w-full h-screen overflow-hidden pb-[env(safe-area-inset-bottom)] bg-gradient-to-b from-[#ecd9ff] via-[#d6e9fb] to-[#f3f3ff]">
         <Routes>
           <Route
             path="/"
@@ -71,6 +71,9 @@ export default function App() {
               )
             }
           />
+          <Route path="/difficulty" element={<DifficultySelector />} />
+          <Route path="/quiz" element={<Game />} />
+          <Route path="/select-category" element={<SelectCategory />} />
           <Route path="/mybadges" element={<MyBadges />} />
         </Routes>
       </div>

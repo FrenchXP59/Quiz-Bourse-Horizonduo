@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Timer from "./Timer";
-import timerIcon from "../assets/icons/timer.png";
 import soundOn from "../assets/icons/sound_on.png";
 import soundOff from "../assets/icons/sound_off.png";
 
 export default function QuestionCard({ data, onAnswer, onNext }) {
   const { question, options, answerIndex, explanation } = data;
-  const TIMER_DURATION = 15;
-
+  
   const [selected, setSelected] = useState(null);
   const [isAnswered, setIsAnswered] = useState(false);
-  const [timer, setTimer] = useState(TIMER_DURATION);
-
-  // Mute (stocké en localStorage)
+  console.log("⏵ DEBUG - QuestionCard data", {
+    isAnswered,
+    explanation,
+    data
+  });
   const [isMuted, setIsMuted] = useState(() =>
     localStorage.getItem("quizMute") === "true"
   );
@@ -22,7 +21,6 @@ export default function QuestionCard({ data, onAnswer, onNext }) {
     localStorage.setItem("quizMute", newMute);
   };
 
-  // Jouer un son (sauf si mute)
   const playSound = (src, vol = 1) => {
     if (isMuted) return;
     const audio = new Audio(src);
@@ -30,30 +28,11 @@ export default function QuestionCard({ data, onAnswer, onNext }) {
     audio.play();
   };
 
-  // Reset pour chaque question
   useEffect(() => {
     setSelected(null);
     setIsAnswered(false);
-    setTimer(TIMER_DURATION);
   }, [data]);
 
-  // Gestion timer + sons
-  useEffect(() => {
-    if (isAnswered) return;
-    if (timer === 0) {
-      setIsAnswered(true);
-      playSound("/sounds/wrongAnswer.mp3");
-      onAnswer(false);
-      return;
-    }
-    if (timer !== TIMER_DURATION) {
-      playSound("/sounds/tick.mp3", 0.7);
-    }
-    const interval = setInterval(() => setTimer((t) => t - 1), 1000);
-    return () => clearInterval(interval);
-  }, [timer, isAnswered, onAnswer, isMuted]);
-
-  // Clic sur une option
   const handleSelect = (idx) => {
     if (isAnswered) return;
     playSound("/sounds/buttonClick.mp3", 0.6);
@@ -70,10 +49,7 @@ export default function QuestionCard({ data, onAnswer, onNext }) {
   return (
     <div className="max-w-xl mx-auto p-4 bg-white rounded-2xl shadow-md">
       {/* Question */}
-      <h2 className="text-xl font-semibold mb-2 text-center">{question}</h2>
-
-      {/* Timer (restauré au format grand) */}
-      <Timer seconds={timer} icon={timerIcon} />
+      <h2 className="text-xl font-semibold mb-4 text-center">{question}</h2>
 
       {/* Réponses */}
       <div className="space-y-3">
@@ -100,16 +76,22 @@ export default function QuestionCard({ data, onAnswer, onNext }) {
           );
         })}
       </div>
-
-      {/* Explication après réponse */}
-      {isAnswered && explanation && (
-        <p className="mt-4 text-sm text-gray-700">{explanation}</p>
+      {isAnswered && (
+        <pre className="text-xs bg-yellow-100 text-black p-3 mt-4 rounded whitespace-pre-wrap">
+          {JSON.stringify(data, null, 2)}
+        </pre>
+      )}
+      {/* Explication affichée sans condition pour test */}
+      {explanation && (
+        <div className="mt-5 px-4 py-3 bg-yellow-50 border-l-4 border-yellow-400 rounded shadow text-sm text-gray-800">
+          💡 <strong>Explication :</strong> {explanation}
+        </div>
       )}
 
-      {/* Footer : mute à gauche, bouton suivant à droite */}
+      {/* Footer */}
       {isAnswered && (
-        <div className="mt-4 flex items-center justify-between">
-          {/* Bouton Mute */}
+        <div className="mt-6 flex items-center justify-between">
+          {/* Mute */}
           <button
             onClick={toggleMute}
             className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition"
@@ -121,7 +103,8 @@ export default function QuestionCard({ data, onAnswer, onNext }) {
               className="w-6 h-6"
             />
           </button>
-          {/* Bouton Suivant */}
+
+          {/* Suivant */}
           <button
             onClick={() => {
               playSound("/sounds/buttonClick.mp3", 0.7);

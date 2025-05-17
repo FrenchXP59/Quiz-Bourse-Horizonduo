@@ -1,32 +1,53 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import targetIcon from "../assets/icons/target.png";
 import chartIcon from "../assets/icons/chart.png";
-import trophyIcon from "../assets/icons/trophy.png";
-import bullMascotte from "../assets/icons/bull-mascotte.png";
+import helpIcon from "../assets/icons/help_button.png";
+import folderIcon from "../assets/icons/folder.png";
 
-const CHALLENGES = [
-  { icon: targetIcon, label: "5 questions", value: 5 },
-  { icon: chartIcon, label: "10 questions", value: 10 },
-  { icon: trophyIcon, label: "15 questions", value: 15 },
-];
+export default function ChallengeSelector() {
+  const navigate = useNavigate();
 
-export default function ChallengeSelector({ onSelect }) {
+  const CHALLENGES = [
+    {
+      icon: targetIcon,
+      label: "20 questions aléatoires",
+      action: () => navigate("/quiz?mode=random20"),
+    },
+    {
+      icon: chartIcon,
+      label: "40 questions aléatoires",
+      action: () => navigate("/quiz?mode=random40"),
+    },
+    {
+      icon: helpIcon,
+      label: "Par difficulté",
+      action: () => navigate("/difficulty"),
+    },
+    {
+      icon: folderIcon,
+      label: "Par thème",
+      action: () => navigate("/select-category"),
+    },
+  ];
+
   return (
-    <div className="flex flex-col items-center min-h-screen justify-center
-      bg-gradient-to-b from-[#faf6ee] via-[#f3f8fe] to-[#faf6ee] py-10 pb-[env(safe-area-inset-bottom)]">
+        <div className="flex flex-col items-center min-h-screen justify-center
+          bg-gradient-to-b from-[#ecd9ff] via-[#d6e9fb] to-[#f3f3ff]
+          px-4 py-10 pb-[calc(env(safe-area-inset-bottom)+4rem)]">
       <div className="
-        bg-[#fcfcfc]/95 border border-[#ede9d7] rounded-xl p-7 w-full max-w-md shadow-xl
+        bg-white/90 border border-[#e2e8f0] rounded-xl p-7 w-full max-w-md shadow-xl
         flex flex-col items-center
       ">
         <h2 className="text-2xl font-bold text-center mb-2">Choisis ton défi !</h2>
         <p className="text-center text-gray-600 mb-7">
-          Combien de questions veux-tu tenter ?
+          Comment veux-tu jouer ?
         </p>
-        <div className="flex flex-col gap-6 w-full">
-          {CHALLENGES.map((c, i) => (
+        <div className="flex flex-col gap-5 w-full">
+          {CHALLENGES.map((btn, i) => (
             <button
               key={i}
-              onClick={() => onSelect(c.value)}
+              onClick={btn.action}
               className="
                 flex items-center gap-4 p-5 bg-white border border-blue-200 rounded-xl w-full
                 font-semibold text-lg shadow-sm
@@ -36,22 +57,15 @@ export default function ChallengeSelector({ onSelect }) {
               "
             >
               <img
-                src={c.icon}
+                src={btn.icon}
                 alt=""
                 className="w-12 h-12 md:w-16 md:h-16 transition-all duration-200"
                 draggable={false}
               />
-              <span>{c.label}</span>
+              <span>{btn.label}</span>
             </button>
           ))}
         </div>
-        <img
-          src={bullMascotte}
-          alt="Mascotte Bulle Bourse"
-          className="block mx-auto mt-9 max-h-36 drop-shadow-md"
-          style={{ filter: "drop-shadow(0 2px 8px #eeddb8)" }}
-          draggable={false}
-        />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 {
-  "name": "Quiz Bourse",
-  "short_name": "QuizBourse",
-  "description": "Teste tes connaissances en Bourse et investissement avec Quiz Bourse. Badges, défis, classement local : à toi de jouer !",
+  "name": "Quiz de Baby à Master",
+  "short_name": "QuizCultuG",
+  "description": "Teste ta culture générale sur tous les sujets : histoire, sciences, littérature, géo, pop culture... Deviens un maître du quiz !",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -16,8 +16,8 @@
       "purpose": "maskable any"
     }
   ],
-  "theme_color": "#fffbe8",
-  "background_color": "#fffbe8",
+  "theme_color": "#d4ecff",
+  "background_color": "#d4ecff",
   "start_url": "/",
   "display": "standalone",
   "scope": "/"

@@ -5,7 +5,18 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        pastel: {
+          blue: '#d4ecff',
+          violet: '#e4d9ff',
+          rose: '#fbe0ee',
+          gradientStart: '#fce3ff',
+          gradientEnd: '#d4ecff',
+        },
+        gold: '#ffd700', // pour éventuels éléments premium / trophée
+      },
+    },
   },
   plugins: [],
 };
